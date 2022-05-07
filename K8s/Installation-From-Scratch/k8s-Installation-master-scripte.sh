@@ -159,7 +159,11 @@ echo '##########################################################################
       #######################################################################################'
 echo
 
-kubeadm init
+mkdir -p /etc/containerd
+containerd config default > /etc/containerd/config.toml
+systemctl restart containerd
+
+kubeadm init --pod-network-cidr 192.168.0.0/16
 
 mkdir -p $HOME/.kube
 cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
@@ -167,12 +171,11 @@ chown $(id -u):$(id -g) $HOME/.kube/config
 
 echo
 echo '#######################################################################################
-      Setup Pod Network using "weave"
+      Setup Pod Network
       #######################################################################################'
 echo
 
-export kubever=$(kubectl version | base64 | tr -d '\n')
-kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
+kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 
 echo
 echo '#######################################################################################
