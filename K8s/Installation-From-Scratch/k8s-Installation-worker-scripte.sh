@@ -153,6 +153,16 @@ yum install -y iproute-tc
 
 echo
 echo '#######################################################################################
+      PREREQUISITES FOR WORKER NODES
+      #######################################################################################'
+echo
+
+mkdir -p /etc/containerd
+containerd config default > /etc/containerd/config.toml
+systemctl restart containerd
+
+echo
+echo '#######################################################################################
       ALL GOOD ... YOU DID GREATE <3
       ------------------------------
       Please paste the command that was generated from kubeadm init here to join k8s cluster.
