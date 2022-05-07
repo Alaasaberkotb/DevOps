@@ -80,7 +80,8 @@ echo
 
 yum install -y yum-utils
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-yum install docker-ce docker-ce-cli containerd.io -y
+dnf install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
+dnf install -y docker-ce
 
 echo
 echo '#######################################################
@@ -157,9 +158,6 @@ echo '##########################################################################
       Configure kubeadm and creating cluster
       #######################################################################################'
 echo
-
-yes | rm /etc/containerd/config.toml
-systemctl restart containerd
 
 kubeadm init
 
