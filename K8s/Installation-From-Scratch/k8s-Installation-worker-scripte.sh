@@ -20,9 +20,9 @@ find / -name "kube*" -type s -exec rm -vf {} \;
 find / -name "kube*" -type f -exec rm -vf {} \;
 
 echo
-echo '############################################
+echo '#############################################
       Disable SELinux enforcement
-      ############################################'
+      #############################################'
 echo
 
 setenforce 0
