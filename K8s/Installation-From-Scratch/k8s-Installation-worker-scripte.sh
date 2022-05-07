@@ -80,7 +80,8 @@ echo
 
 yum install -y yum-utils
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-yum install docker-ce docker-ce-cli containerd.io -y
+dnf install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
+dnf install -y docker-ce
 
 echo
 echo '#######################################################
@@ -149,15 +150,6 @@ echo '##########################################################################
 echo
 
 yum install -y iproute-tc
-
-echo
-echo '#######################################################################################
-      Pre-rqistes to join K8s cluster
-      #######################################################################################'
-echo
-
-yes | rm /etc/containerd/config.toml
-systemctl restart containerd
 
 echo
 echo '#######################################################################################
