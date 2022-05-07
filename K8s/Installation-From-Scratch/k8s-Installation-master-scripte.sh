@@ -84,9 +84,9 @@ dnf install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages
 dnf install -y docker-ce
 
 echo
-echo '#######################################################
+echo '########################################################
       Start the docker service
-      #######################################################'
+      ########################################################'
 echo
 
 systemctl start docker
