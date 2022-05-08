@@ -127,22 +127,23 @@ sudo bash "scriptname.sh"
    rm -rf /etc/cni/net.d/* && rm -rf $HOME/.kube/config
    ```
  - On master only
-  1-
+ 
+   1-
    ```
    kubeadm init --pod-network-cidr 192.168.0.0/16
    ```
-  2-
+   2-
    ```
    mkdir -p $HOME/.kube
    sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
    sudo chown $(id -u):$(id -g) $HOME/.kube/config
    ```
-  3-
+   3-
    ```
    kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
    ```
-  4- Join the worker to the cluster and wait till they get ready, to check ...
+   4- Join the worker to the cluster and wait till they get ready, to check ...
    ```
    kubectl get nodes
    ```
-  ########################################################################  THANK YOU ######################################################################## 
+################################################    THANK YOU    ################################################
