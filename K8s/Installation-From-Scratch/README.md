@@ -72,5 +72,72 @@ sudo chmod +x "scriptname.sh"
 sudo bash "scriptname.sh"
 ```
 # Errors that may occur during or after the installation with solve
-- 
--
+- [WARNING Swap]: swap is enabled; production deployments should disable swap unless testing the NodeSwap feature gate of the kubelet ...
+  Solve:
+  ```
+  swapoff -a
+  ```
+  Hash all swaps in /etc/fstab
+  
+- [WARNING FileExisting-tc]: tc not found in system path error execution phase preflight: [preflight] Some fatal errors occurred ...
+  Solve:
+  ```
+  dnf install -y iproute-tc
+  ```
+- [ERROR CRI]: container runtime is not running: output: time="2022-05-06T21 emented desc = unknown service runtime.v1alpha2.RuntimeService"
+  Solve:
+  ```
+  yes | rm /etc/containerd/config.toml
+  mkdir -p /etc/containerd
+  containerd config default > /etc/containerd/config.toml
+  systemctl restart containerd
+  ```
+- Failed to create pod sandbox: rpc error: code = Unknown desc = failed to setup network for sandbox "72650e68f6cdb67e9d212d443df8c6a73d008d03296fef699dad19f1f66a8eea": plugin type="calico" failed (add): stat /var/lib/calico/nodename: no such file or directory: check that the calico/node container is running and has mounted /var/lib/calico/
+  Solve:
+  Check that the calico/node container is running and has mounted /var/lib/calico/
+  ```
+  kubectl get pods --all-namespaces
+  ```
+  Like ...
+  ```
+  kube-system   calico-kube-controllers-77484fbbb5-wwnwf   0/1     ContainerCreating   0          10m
+  kube-system   calico-node-9pdlw                          0/1     Running             0          10m
+  kube-system   calico-node-r9lqg                          0/1     Running             0          9m25s
+  kube-system   calico-node-wlz4j                          0/1     Running             0          9m26s
+  kube-system   coredns-6d4b75cb6d-8dvlk                   1/1     Running             0          10m
+  kube-system   coredns-6d4b75cb6d-cr7sw                   1/1     Running             0          10m
+  kube-system   etcd-k8s                                   1/1     Running             7          11m
+  kube-system   kube-apiserver-k8s                         1/1     Running             7          11m
+  kube-system   kube-controller-manager-k8s                1/1     Running             0          11m
+  kube-system   kube-proxy-496k8                           1/1     Running             0          9m26s
+  kube-system   kube-proxy-64ps6                           1/1     Running             0          10m
+  kube-system   kube-proxy-fx784                           1/1     Running             0          9m26s
+  kube-system   kube-scheduler-k8s                         1/1     Running             8          11m
+  ```
+- Failed create pod sandbox: rpc error: code = Unknown desc = NetworkPlugin cni failed to set up pod network
+  Solve:
+ - On master and workers
+   ```
+   kubeadm reset
+   rm -rf /etc/cni/net.d/* && rm -rf $HOME/.kube/config
+   ```
+ - On master only
+  1-
+   ```
+   kubeadm init --pod-network-cidr 192.168.0.0/16
+   ```
+  2-
+   ```
+   mkdir -p $HOME/.kube
+   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+   sudo chown $(id -u):$(id -g) $HOME/.kube/config
+   ```
+  3-
+   ```
+   kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+   ```
+  4- Join the worker to the cluster and wait till they get ready, to check ...
+   ```
+   kubectl get nodes
+   ```
+  ########################################################################  THANK YOU ######################################################################## 
