@@ -73,6 +73,7 @@ sudo bash "scriptname.sh"
 ```
 # Errors that may occur during or after the installation with solve
 - [WARNING Swap]: swap is enabled; production deployments should disable swap unless testing the NodeSwap feature gate of the kubelet ...
+
   Solve:
   ```
   swapoff -a
@@ -80,11 +81,13 @@ sudo bash "scriptname.sh"
   Hash all swaps in /etc/fstab
   
 - [WARNING FileExisting-tc]: tc not found in system path error execution phase preflight: [preflight] Some fatal errors occurred ...
+
   Solve:
   ```
   dnf install -y iproute-tc
   ```
 - [ERROR CRI]: container runtime is not running: output: time="2022-05-06T21 emented desc = unknown service runtime.v1alpha2.RuntimeService"
+
   Solve:
   ```
   yes | rm /etc/containerd/config.toml
@@ -93,6 +96,7 @@ sudo bash "scriptname.sh"
   systemctl restart containerd
   ```
 - Failed to create pod sandbox: rpc error: code = Unknown desc = failed to setup network for sandbox "72650e68f6cdb67e9d212d443df8c6a73d008d03296fef699dad19f1f66a8eea": plugin type="calico" failed (add): stat /var/lib/calico/nodename: no such file or directory: check that the calico/node container is running and has mounted /var/lib/calico/
+
   Solve:
   Check that the calico/node container is running and has mounted /var/lib/calico/
   ```
@@ -115,6 +119,7 @@ sudo bash "scriptname.sh"
   kube-system   kube-scheduler-k8s                         1/1     Running             8          11m
   ```
 - Failed create pod sandbox: rpc error: code = Unknown desc = NetworkPlugin cni failed to set up pod network
+
   Solve:
  - On master and workers
    ```
