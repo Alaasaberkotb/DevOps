@@ -41,6 +41,8 @@ net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 EOF
 
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
 sysctl --system
 
 echo
