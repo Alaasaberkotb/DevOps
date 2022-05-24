@@ -14,7 +14,7 @@
 
   5- Adding the Jenkins port to the firewall.
 
-### Follow the instruction at the end of the script.
+### NOTE: Follow the instruction at the end of the script.
 
 # How to execute the script?
 
