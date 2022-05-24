@@ -37,7 +37,7 @@ wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/je
 
 
 echo '############################################################
-      Importing the GPG key to ensure your software is legitimate
+      Import the GPG key to ensure your software is legitimate
       ############################################################'
 echo
 
@@ -61,7 +61,7 @@ systemctl enable jenkins
 
 echo
 echo '##################################################################################
-      Adding the Jenkins port to firewall
+      Adding the Jenkins port to the firewall
       #################################################################################'
 echo
 
