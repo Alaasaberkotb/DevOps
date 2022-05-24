@@ -10,10 +10,22 @@ echo
 echo 'Would you like to install Java 8 on your system? [y|n]'
 read answer
 
-if [ answer = y -o Y ]
+while [ $answer ]
+do
+if [ $answer = y -o $answer = Y ]
 then 
-     yum install java-1.8.0-openjdk-devel
+     yum install java-1.8.0-openjdk-devel -y
+     break
+elif [ $answer = n -o $answer = N ]
+then
+	break
+else
+	echo 'Invalid input! please choose correct option [ y | Y | n | N ]'
+	read answer
 fi
+done
+
+
 echo
 
 echo '##########################
