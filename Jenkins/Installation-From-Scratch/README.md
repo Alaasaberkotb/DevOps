@@ -1,7 +1,6 @@
 # CRITICAL INFORMATION
 - What are these scripts and what Linux distribution could they run on?
   - These scripts install Jenkins.
-  - Run-on Centos/RHEL 8/7.
 - How do these scripts work?
 
   1- Asking you to install Java 8 on your system.
