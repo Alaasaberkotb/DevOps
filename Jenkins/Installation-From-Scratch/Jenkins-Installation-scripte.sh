@@ -10,7 +10,7 @@ echo
 echo 'Would you like to install Java 8 on your system? [y|n]'
 read answer
 
-while [ $answer ]
+while [ $answer -n -o $answer -z ]
 do
 if [ $answer = y -o $answer = Y ]
 then 
