@@ -10,7 +10,7 @@ echo
 echo 'Would you like to install Java 8 on your system? [y|n]'
 read answer
 
-while [ $answer -n -o $answer -z ]
+while [ -n $answer -o -z $answer ]
 do
 if [ $answer = y -o $answer = Y ]
 then 
@@ -28,15 +28,14 @@ done
 
 
 echo
-
 echo '##########################
       Adding Jenkins repository
       ##########################'
 echo      
 
-wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key |sudo gpg --dearmor -o /usr/share/keyrings/jenkins.gpg
-
+yes | wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key |sudo gpg --dearmor -o /usr/share/keyrings/jenkins.gpg
 sh -c 'echo deb [signed-by=/usr/share/keyrings/jenkins.gpg] http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+apt update
 
 echo '############################################################
       Installing Jenkins
@@ -51,7 +50,7 @@ echo '##########################################################################
       #################################################################################'
 echo
 
-systemctl start jenkins
+systemctl start jenkins.service
 systemctl enable jenkins
 
 echo
@@ -60,8 +59,7 @@ echo '##########################################################################
       #################################################################################'
 echo
 
-ufw allow OpenSSH
-ufw enable
+yes | ufw enable
 ufw allow 8080
 
 echo
@@ -69,7 +67,6 @@ echo '+++++++++++++++++++++++++++++  Status  +++++++++++++++++++++++++++++'
 
 systemctl status jenkins
 ufw status
-
 
 echo '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
 echo '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
